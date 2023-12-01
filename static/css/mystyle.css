@@ -1,6 +1,5 @@
 header {
-    text-align: right; /* 靠右对齐 */
-    font-family: "楷体"
+    font-family: "楷体";
 }
 
 footer {
@@ -37,8 +36,9 @@ input[type="submit"] {
 }
 
 div {
-    max-width: 800px; /* 最大宽度为800像素 */
-    margin: 0 auto; /* 左右居中 */
+    text-align: center; /* 文字居中 */
+    font-family: "楷体";
+    font-size: 20px;
 }
 
 table {

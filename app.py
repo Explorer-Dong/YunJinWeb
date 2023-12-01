@@ -3,29 +3,20 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
-# 配置数据库，将数据库的URI替换为实际的数据库URI
-app.config[
-	"SQLALCHEMY_DATABASE_URI"
-] = "mysql+pymysql://root:123456@localhost:3306/poem"
 
-# 配置数据库追踪信息，将其设置为False，否则会影响性能
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:123456@localhost:3306/poem"
 
-# 创建数据库对象
+
 db = SQLAlchemy(app)
 
 
-# 定义数据库模型
 class Poem(db.Model):
-	# 指定正确的表名
 	__tablename__ = "poem_table"
-	# 定义表结构
-	dynasty = db.Column(db.String(10), primary_key=True)  # 主键
+	dynasty = db.Column(db.String(10), primary_key=True)
 	ori = db.Column(db.String(100))
 	fro = db.Column(db.String(30))
 	kind = db.Column(db.String(10))
 	
-	# 定义构造函数
 	def __init__(self, dynasty, ori, fro, kind):
 		self.dynasty = dynasty
 		self.ori = ori
@@ -34,24 +25,29 @@ class Poem(db.Model):
 
 
 @app.route("/", methods=["POST", "GET"])
-def index():
-	page = request.args.get("page", 1, type=int)  # 获取当前页数，默认为第一页
-	per_page = 6  # 每页显示的条目数
+def homepage():
+	"""
+	参数列表：
+	"""
 	
 	if request.method == "POST":
-		keyword = request.form.get("content", "")
+		# 搜索状态
+		keyword = request.form.get("search_of_key", "")
+		poems = Poem.query.filter(Poem.ori.like("%" + keyword + "%"))
 		
-		if keyword == "":
-			return render_template("index.html", poems=[], keyword=keyword)
+		for it in poems:
+			print(it)
+
+		if poems.first() is None:
+			return render_template("homepage.html", poems=[], keyword="__error__")
 		else:
-			poems = Poem.query.filter(Poem.ori.like("%" + keyword + "%")).paginate(page=page, per_page=per_page)
-			return render_template("index.html", poems=poems, keyword=keyword)
-	else:
-		poems = Poem.query.paginate(page=page, per_page=per_page)
-		return render_template("index.html", poems=poems, keyword="")
+			return render_template("homepage.html", poems=poems, keyword=keyword)
+		
+	else: # request.method == "GET"
+		# 初始进入当前界面状态
+		return render_template("homepage.html", poems=[], keyword="__new__")
 
 
-# 实现跳转到其他页面的逻辑
 @app.route("/add1", methods=["POST", "GET"])
 def add1():
 	return render_template("add1.html")

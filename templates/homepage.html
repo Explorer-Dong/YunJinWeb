@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}主页{% endblock %}
+
+{% block main %}
+
+<!-- 搜索表单 -->
+<form method="post" action="{{ url_for('homepage') }}" name="">
+	<input type="text" name="search_of_key" placeholder="请输入搜索关键词"/>
+	<input type="submit" value="搜索"/>
+</form>
+
+<!-- 初始进入界面的状态 -->
+{% if keyword == "__new__" %}
+<div><p class="error-message">欢迎来到云锦:)</p></div>
+
+<!-- 未查到结果 or 输入为空 -->
+{% elif keyword == "__error__" %}
+<div><p class="error-message">请重新输入:(</p></div>
+
+<!-- 查询到并高亮展示关键词 -->
+{% else %}
+<div>
+	<table>
+		<tr>
+			<th>朝代</th>
+			<th>原文</th>
+			<th>出处</th>
+			<th>分类</th>
+		</tr>
+		{% for poem in poems %}
+		<tr>
+			<td>{{ poem.dynasty }}</td>
+			<td>
+				{% set text = poem.ori.replace(keyword, '<span class="highlight">' + keyword + '</span>') %}
+				{{ text | safe }}
+			</td>
+			<td>{{ poem.fro }}</td>
+			<td>{{ poem.kind }}</td>
+		</tr>
+		{% endfor %}
+	</table>
+</div>
+{% endif %}
+
+{% endblock %}
