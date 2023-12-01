@@ -1,0 +1,86 @@
+header {
+    text-align: right; /* 靠右对齐 */
+    font-family: "楷体"
+}
+
+footer {
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    font-family: "楷体"
+}
+
+form {
+    display: flex; /* 弹性布局 */
+    justify-content: center; /* 水平居中 */
+    align-items: center; /* 垂直居中 */
+    margin-top: 100px; /* 上边距为50像素 */
+}
+
+input[type="text"] {
+    padding: 10px; /* 内边距 */
+    border: 1px solid #ccc; /* 边框粗细为1像素的直线，边框颜色为浅灰色 */
+    border-radius: 5px; /* 边框圆角为5像素 */
+    margin-right: 10px; /* 右边距为10像素 */
+    width: 200px; /* 输入框宽度为200像素 */
+}
+
+input[type="submit"] {
+    padding: 10px; /* 内边距 */
+    border: none; /* 无边框 */
+    font-weight: bold; /* 字体加粗 */
+    background-color: #009bff;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer; /* 鼠标移动到按钮上时显示手型 */
+}
+
+div {
+    max-width: 800px; /* 最大宽度为800像素 */
+    margin: 0 auto; /* 左右居中 */
+}
+
+table {
+    width: 100%; /* 表格宽度为100% */
+    border-collapse: collapse; /* 合并边框 */
+    margin-top: 20px; /* 上边距为20像素 */
+}
+
+td {
+    padding: 10px; /* 内边距 */
+    text-align: center; /* 文字居中 */
+    border: 1px solid #ccc; /* 边框粗细为1像素的直线，边框颜色为浅灰色 */
+    font-family: "楷体";
+    font-size: 20px;
+}
+
+th {
+    padding: 10px;
+    text-align: center;
+    background-color: #007bff;
+    color: #fff;
+    font-weight: bold;
+    font-family: "楷体";
+    font-size: 20px;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2; /* 偶数行背景色为浅灰色 */
+}
+
+tr:hover {
+    background-color: #cce0ff; /* 鼠标移动到表格行上时背景色为浅蓝色 */
+}
+
+.error-message {
+    color: #f00;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.highlight {
+    background-color: yellow;
+    font-weight: bold;
+}
