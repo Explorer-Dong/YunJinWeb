@@ -4,43 +4,85 @@
 
 {% block main %}
 
-<!-- 搜索表单 -->
+<!-- 大标题 -->
+<div><h1>云锦</h1></div>
+
+<!-- 搜索字段 -->
 <form method="post" action="{{ url_for('homepage') }}" name="">
-	<input type="text" name="search_of_key" placeholder="请输入搜索关键词"/>
+	<input type="checkbox" name="search_fields" value="dynasty"/>朝代
+	<input type="checkbox" name="search_fields" value="ori"/>原文
+	<input type="checkbox" name="search_fields" value="fro"/>出处
+	<input type="checkbox" name="search_fields" value="kind"/>分类
+</form>
+
+<!-- 搜索框 -->
+<form method="post" action="{{ url_for('homepage') }}" name="">
+	<input type="text" name="search_keyword" placeholder="请输入搜索关键词"/>
 	<input type="submit" value="搜索"/>
 </form>
 
+<!-------------------------------- 显示搜索结果 begin -------------------------------->
+
 <!-- 初始进入界面的状态 -->
 {% if keyword == "__new__" %}
-<div><p class="error-message">欢迎来到云锦:)</p></div>
+<div><p>欢迎来到云锦:)</p></div>
 
-<!-- 未查到结果 or 输入为空 -->
+<!-- 未查到结果的状态 -->
 {% elif keyword == "__error__" %}
-<div><p class="error-message">请重新输入:(</p></div>
+<div><p>请重新输入:(</p></div>
 
-<!-- 查询到并高亮展示关键词 -->
+<!-- 查询到并高亮展示关键词 TODO: 分类高亮 -->
 {% else %}
 <div>
 	<table>
 		<tr>
-			<th>朝代</th>
-			<th>原文</th>
-			<th>出处</th>
-			<th>分类</th>
+			<th>朝代</th><th>原文</th><th>出处</th><th>分类</th>
 		</tr>
 		{% for poem in poems %}
 		<tr>
-			<td>{{ poem.dynasty }}</td>
 			<td>
-				{% set text = poem.ori.replace(keyword, '<span class="highlight">' + keyword + '</span>') %}
+				{% if "dynasty" in fields %}
+					{% set text = poem.dynasty.replace(keyword, '<span class="highlight">' + keyword + '</span>') %}
+				{% else %}
+					{% set text = poem.dynasty %}
+				{% endif %}
+
 				{{ text | safe }}
 			</td>
-			<td>{{ poem.fro }}</td>
-			<td>{{ poem.kind }}</td>
+			<td>
+				{% if "ori" in fields %}
+					{% set text = poem.ori.replace(keyword, '<span class="highlight">' + keyword + '</span>') %}
+					{{ text | safe }}
+				{% else %}
+					{% set text = poem.ori %}
+				{% endif %}
+
+				{{ text | safe }}
+			</td>
+			<td>
+				{% if "fro" in fields %}
+					{% set text = poem.fro.replace(keyword, '<span class="highlight">' + keyword + '</span>') %}
+				{% else %}
+					{% set text = poem.fro %}
+				{% endif %}
+
+				{{ text | safe }}
+			</td>
+			<td>
+				{% if "kind" in fields %}
+					{% set text = poem.kind.replace(keyword, '<span class="highlight">' + keyword + '</span>') %}
+				{% else %}
+					{% set text = poem.kind %}
+				{% endif %}
+
+				{{ text | safe }}
+			</td>
 		</tr>
 		{% endfor %}
 	</table>
 </div>
 {% endif %}
+
+<!-------------------------------- 显示搜索结果 end -------------------------------->
 
 {% endblock %}
