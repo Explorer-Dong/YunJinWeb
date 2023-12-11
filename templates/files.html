@@ -6,25 +6,25 @@
 
 <p>方志史籍页面</p>
 
-<!--下方为静态文件链接表格，分四栏，分别为：文件名、文件类型、文件大小、下载按钮-->
 <table>
 	<thead>
-		<tr><th>文件名</th><th>文件类型</th><th>文件大小</th><th>下载</th></tr>
+	<tr>
+		<th>文件名</th>
+		<th>文件类型</th>
+		<th>文件大小(KB)</th>
+		<th>下载文件</th>
+	</tr>
 	</thead>
 
 	<tbody>
-		<tr>
-			<td>云锦方志</td>
-			<td>PDF</td>
-			<td>1.2MB</td>
-			<td><a href="{{ url_for('static', filename='files/demo.pdf') }}">下载</a></td>
-		</tr>
-		<tr>
-			<td>云锦方志</td>
-			<td>XLSX</td>
-			<td>1.2MB</td>
-			<td><a href="{{ url_for('static', filename='files/demo2.xlsx') }}">下载</a></td>
-		</tr>
+	{% for file in files %}
+	<tr>
+		<td>{{ file.name }}</td>
+		<td>{{ file.type }}</td>
+		<td>{{ file.size }}</td>
+		<td><a href="{{ url_for('static', filename=file.name) }}" download>下载</a></td>
+	</tr>
+	{% endfor %}
 	</tbody>
 </table>
 

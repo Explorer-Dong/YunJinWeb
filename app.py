@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 import config
 from exts import db
 from models import Poem
+import os
 
 app = Flask(__name__)
 app.config.from_object(config)
@@ -63,7 +64,25 @@ def homepage():
 
 @app.route("/files", methods=["POST", "GET"])
 def files():
-	return render_template("files.html")
+	# 获取static文件夹下的所有文件
+	file_dir = os.path.join(app.root_path, 'static/files')
+	files = os.listdir(file_dir)
+	# 获取每个文件的信息
+	file_info_list = []
+	for file in files:
+		file_path = os.path.join(file_dir, file)
+		# 获取文件大小(KB)，并保留两位小数
+		file_size = round(os.path.getsize(file_path) / 1024, 2)
+		# 获取文件类型
+		file_type = os.path.splitext(file)[1]
+		# 将文件信息添加到列表中
+		file_info_list.append({
+			'name': file,
+			'type': file_type,
+			'size': file_size
+		})
+
+	return render_template("files.html", files=file_info_list)
 
 
 @app.route("/intro", methods=["POST", "GET"])
