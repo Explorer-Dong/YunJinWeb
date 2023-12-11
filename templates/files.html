@@ -4,28 +4,26 @@
 
 {% block main %}
 
-<p>方志史籍页面</p>
-
 <table>
-	<thead>
-	<tr>
-		<th>文件名</th>
-		<th>文件类型</th>
-		<th>文件大小(KB)</th>
-		<th>下载文件</th>
-	</tr>
-	</thead>
+  <thead>
+  <tr>
+    <th>文件名</th>
+    <th>文件类型</th>
+    <th>文件大小(KB)</th>
+    <th>下载文件</th>
+  </tr>
+  </thead>
 
-	<tbody>
-	{% for file in files %}
-	<tr>
-		<td>{{ file.name }}</td>
-		<td>{{ file.type }}</td>
-		<td>{{ file.size }}</td>
-		<td><a href="{{ url_for('static', filename=file.name) }}" download>下载</a></td>
-	</tr>
-	{% endfor %}
-	</tbody>
+  <tbody>
+  {% for file in files %}
+  <tr>
+    <td>{{ file.name }}</td>
+    <td>{{ file.type }}</td>
+    <td>{{ file.size }}</td>
+    <td><a href="{{ url_for('static', filename=file.name) }}" download>下载</a></td>
+  </tr>
+  {% endfor %}
+  </tbody>
 </table>
 
 

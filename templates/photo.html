@@ -4,6 +4,13 @@
 
 {% block main %}
 
-<p>图片欣赏页面</p>
+<table>
+  {% for item in image_text %}
+  <tr>
+    <td><img src="{{ url_for('static', filename='images/' + item.src) }}" alt="Image"></td>
+    <td>{{ item.text }}</td>
+  </tr>
+  {% endfor %}
+</table>
 
 {% endblock %}

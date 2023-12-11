@@ -1,18 +1,12 @@
 from flask import Flask, request, render_template
-from flask_sqlalchemy import SQLAlchemy
-# from flask_migrate import Migrate
-import config
-from exts import db
-from models import Poem
-import os
+import os, json
+import config               # 导入配置文件
+from exts import db         # 导入数据库实例
+from models import Poem     # 导入Poem模型ORM类
 
 app = Flask(__name__)
 app.config.from_object(config)
 db.init_app(app)
-
-
-# 将ORM模型与数据库进行同步
-# migrate = Migrate(app, db)
 
 
 @app.route("/", methods=["POST", "GET"])
@@ -67,21 +61,19 @@ def files():
 	# 获取static文件夹下的所有文件
 	file_dir = os.path.join(app.root_path, 'static/files')
 	files = os.listdir(file_dir)
+	
 	# 获取每个文件的信息
 	file_info_list = []
 	for file in files:
 		file_path = os.path.join(file_dir, file)
-		# 获取文件大小(KB)，并保留两位小数
 		file_size = round(os.path.getsize(file_path) / 1024, 2)
-		# 获取文件类型
 		file_type = os.path.splitext(file)[1]
-		# 将文件信息添加到列表中
 		file_info_list.append({
 			'name': file,
 			'type': file_type,
 			'size': file_size
 		})
-
+	
 	return render_template("files.html", files=file_info_list)
 
 
@@ -92,8 +84,10 @@ def intro():
 
 @app.route("/photo", methods=["POST", "GET"])
 def photo():
-	return render_template("photo.html")
+	with open('static/json/image_text.json', 'r') as f:
+		image_text = json.load(f)
+	return render_template("photo.html", image_text=image_text)
 
 
 if __name__ == "__main__":
-	app.run(debug=True)
+	app.run(debug=True, port='5000', host='0.0.0.0')

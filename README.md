@@ -1,18 +1,26 @@
-# 云锦网站
+## Tech stack
 
-## Intr
-
-### 技术栈：
-
-- 前端：
+- Front end
     - Jinjia2
     - HTML
-    - CSS
-- 后端：
+    - CSS、Bootstrap
+- Rear end
     - Flask
-- 数据库：
+- Database
     - MySQL
 
 ## Contact
 
-:email: - explorer-dong@foxmail.com
+:email:: explorer-dong@foxmail.com
+
+## File Instruction
+
+- `static` : static file folder
+- `templates` : hypertext markup language folder
+- `.gitignore` : git ignore files
+- `app.py` : application master interface file
+- `exts.py` : application  dependency object file
+- `models.py` : ORM mapping object file
+- `README.md` : project description file
+- `requirements.txt` : project dependent module file
+- `uwsgi.ini` : uwsgi application server configuration file
