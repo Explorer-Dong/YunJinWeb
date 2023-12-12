@@ -69,7 +69,7 @@ def files():
 		file_size = round(os.path.getsize(file_path) / 1024, 2)
 		file_type = os.path.splitext(file)[1]
 		file_info_list.append({
-			'name': file,
+			'name': os.path.splitext(file)[0],
 			'type': file_type,
 			'size': file_size
 		})
@@ -84,7 +84,7 @@ def intro():
 
 @app.route("/photo", methods=["POST", "GET"])
 def photo():
-	with open('static/json/image_text.json', 'r') as f:
+	with open('static/json/image_text.json', 'r', encoding='gbk') as f:
 		image_text = json.load(f)
 	return render_template("photo.html", image_text=image_text)
 

@@ -3,14 +3,22 @@
 {% block title %}图片欣赏{% endblock %}
 
 {% block main %}
+<!-------------------------------- 大标题 -------------------------------->
+<div class="page-header text-center" style="font-family: 楷体">
+  <h1>图片欣赏</h1>
+</div>
 
-<table>
-  {% for item in image_text %}
-  <tr>
-    <td><img src="{{ url_for('static', filename='images/' + item.src) }}" alt="Image"></td>
-    <td>{{ item.text }}</td>
-  </tr>
-  {% endfor %}
-</table>
-
+<!-------------------------------- 图片展示 -------------------------------->
+<div class="container">
+  <div class="row">
+    {% for item in image_text %}
+    <div class="col-md-4">
+      <div class="card">
+        <img class="card-img-top fixed-size" src="{{ url_for('static', filename='images/' + item.src) }}" alt="Image">
+        <div class="card-body"><p class="card-text">{{ item.text }}</p></div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
 {% endblock %}
