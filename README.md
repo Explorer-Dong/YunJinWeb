@@ -1,9 +1,9 @@
 ## Tech stack
 
 - Front end
-    - Jinjia2
+    - Jinja2
     - HTML
-    - CSS、Bootstrap
+    - CSS、Bootstrap3
 - Rear end
     - Flask
 - Database
