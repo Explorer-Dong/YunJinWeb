@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% block title %}主页{% endblock %}
+
+{% block main %}
+
+<!-------------------------------- 大标题 -------------------------------->
+<div class="page-header text-center" style="font-family: 楷体">
+  <h1>云锦</h1>
+</div>
+
+<!-------------------------------- 搜索框 -------------------------------->
+
+<!-- 复选框 -->
+<div class="row">
+  <div class="col-md-4 col-md-push-4">
+    <form method="post" action="{{ url_for('homepage') }}" name="" class="form-control ">
+      <label class="checkbox-inline">
+        <input type="checkbox" name="search_fields" value="dynasty"/>朝代
+      </label>
+      <label class="checkbox-inline">
+        <input type="checkbox" name="search_fields" value="ori"/>原文
+      </label>
+      <label class="checkbox-inline">
+        <input type="checkbox" name="search_fields" value="fro"/>出处
+      </label>
+      <label class="checkbox-inline">
+        <input type="checkbox" name="search_fields" value="kind"/>分类
+      </label>
+    </form>
+  </div>
+</div>
+
+<!-- 文本框 -->
+<form method="post" action="{{ url_for('homepage') }}" name="">
+  <div class="row">
+    <div class="col-md-3 col-md-push-4">
+      <input type="text" name="search_keyword" placeholder="请输入搜索关键词" class="form-control"/>
+    </div>
+    <div class="col-md-1 col-md-push-4">
+      <input type="submit" value="搜索" class="form-control"/>
+    </div>
+  </div>
+</form>
+
+<!-------------------------------- 显示搜索结果 begin -------------------------------->
+
+<!-- 初始进入界面的状态 -->
+{% if keyword == "__new__" %}
+<div style="font-size: x-large" class="text-success text-center">
+  <p>欢迎来到云锦:)</p>
+</div>
+
+<!-- 未查到结果的状态 -->
+{% elif keyword == "__error__" %}
+<div style="font-size: x-large" class="text-danger text-center">
+  <p>请重新输入:(</p>
+</div>
+
+<!-- 表格 & 高亮 TODO: 分类高亮 -->
+{% else %}
+<div>
+  <table class="table table-bordered table-striped table-hover center-block" style="max-width: 800px; font-size: 17px; font-family: 楷体">
+    <tr>
+      <th>朝代</th>
+      <th>原文</th>
+      <th>出处</th>
+      <th>分类</th>
+    </tr>
+    {% for poem in poems %}
+    <tr>
+      <td>
+        {% if "dynasty" in fields %}
+        {% set text = poem.dynasty.replace(keyword, '<span class="highlight">' + keyword + '</span>') %}
+        {% else %}
+        {% set text = poem.dynasty %}
+        {% endif %}
+
+        {{ text | safe }}
+      </td>
+      <td>
+        {% if "ori" in fields %}
+        {% set text = poem.ori.replace(keyword, '<span class="highlight">' + keyword + '</span>') %}
+        {{ text | safe }}
+        {% else %}
+        {% set text = poem.ori %}
+        {% endif %}
+
+        {{ text | safe }}
+      </td>
+      <td>
+        {% if "fro" in fields %}
+        {% set text = poem.fro.replace(keyword, '<span class="highlight">' + keyword + '</span>') %}
+        {% else %}
+        {% set text = poem.fro %}
+        {% endif %}
+
+        {{ text | safe }}
+      </td>
+      <td>
+        {% if "kind" in fields %}
+        {% set text = poem.kind.replace(keyword, '<span class="highlight">' + keyword + '</span>') %}
+        {% else %}
+        {% set text = poem.kind %}
+        {% endif %}
+
+        {{ text | safe }}
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+{% endif %}
+
+<!-------------------------------- 显示搜索结果 end -------------------------------->
+
+{% endblock %}

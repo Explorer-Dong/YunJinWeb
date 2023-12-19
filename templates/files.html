@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}方志史籍{% endblock %}
+
+{% block main %}
+
+<!-------------------------------- 大标题 -------------------------------->
+<div class="page-header text-center" style="font-family: 楷体">
+  <h1>方志史籍</h1>
+</div>
+
+
+<!-------------------------------- 文件表格 -------------------------------->
+<div class="container">
+  <table class="table table-bordered table-striped table-hover" align="center" style="max-width: 800px; text-align: center">
+    <thead style="font-weight: bold">
+    <tr>
+      <td>文件名</td>
+      <td>文件类型</td>
+      <td>文件大小(KB)</td>
+      <td>下载文件</td>
+    </tr>
+    </thead>
+
+    {% for file in files %}
+    <tr>
+      <td>{{ file.name }}</td>
+      <td>{{ file.type }}</td>
+      <td>{{ file.size }}</td>
+      <td><a href="{{ url_for('static', filename=file.name) }}" download>下载</a></td>
+    </tr>
+    {% endfor %}
+  </table>
+
+</div>
+
+{% endblock %}
