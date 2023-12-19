@@ -9,9 +9,9 @@
 - Database
     - MySQL
 
-## Contact
+## Architecture
 
-:email:: explorer-dong@foxmail.com
+<img src="https://s2.loli.net/2023/12/19/uHhDYvtSVcWydO4.png" alt="front end architecture.png" style="zoom:67%;" />
 
 ## File Instruction
 
@@ -24,3 +24,7 @@
 - `README.md` : project description file
 - `requirements.txt` : project dependent module file
 - `uwsgi.ini` : uwsgi application server configuration file
+
+## Contact
+
+:email:: explorer-dong@foxmail.com
