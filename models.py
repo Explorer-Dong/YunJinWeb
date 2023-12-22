@@ -12,7 +12,7 @@ from exts import db
 
 
 class Poem(db.Model):
-	__tablename__ = "poem_table"
+	__tablename__ = "poems"
 	dynasty = db.Column(db.String(10), primary_key=True)
 	ori = db.Column(db.String(100))
 	fro = db.Column(db.String(30))
