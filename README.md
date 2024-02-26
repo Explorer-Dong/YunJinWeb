@@ -3,7 +3,7 @@
 - Front end
     - Jinja2 template
     - HTML
-    - CSS、Bootstrap3
+    - CSS5、Bootstrap3
 - Rear end
     - Flask
 - Database
