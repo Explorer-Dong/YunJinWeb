@@ -1,7 +1,7 @@
 ## Tech stack
 
 - Front end
-    - Jinja2
+    - Jinja2 template
     - HTML
     - CSS、Bootstrap3
 - Rear end
