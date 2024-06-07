@@ -1,9 +1,9 @@
 ## Tech stack
 
 - Front end
-    - Jinja2
+    - Jinja2 template
     - HTML
-    - CSS、Bootstrap3
+    - CSS3、Bootstrap3
 - Rear end
     - Flask
 - Database
@@ -11,7 +11,7 @@
 
 ## Architecture
 
-<img src="https://s2.loli.net/2023/12/19/uHhDYvtSVcWydO4.png" alt="front end architecture.png" style="zoom:67%;" />
+<img src="https://dwj-oss.oss-cn-nanjing.aliyuncs.com/images/202402261932939.png" alt="front end architecture.png" style="zoom:67%;" />
 
 ## File Instruction
 
